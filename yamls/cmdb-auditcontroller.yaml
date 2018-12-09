@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-auditcontroller
+  labels:
+    app: cmdb-auditcontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-auditcontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-auditcontroller
+        image: cmdb-auditcontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50005
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-auditcontroller
+  labels:
+    app: cmdb-auditcontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-auditcontroller
+  ports:
+  - name: cmdb-auditcontroller
+    targetPort: 50005
+    port: 50005
+    protocol: TCP

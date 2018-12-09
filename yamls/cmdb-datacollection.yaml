@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-datacollection
+  labels:
+    app: cmdb-datacollection
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-datacollection
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-datacollection
+        image: cmdb-datacollection:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60005
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-datacollection
+  labels:
+    app: cmdb-datacollection
+  namespace: default
+spec:
+  selector:
+    app: cmdb-datacollection
+  ports:
+  - name: cmdb-datacollection
+    targetPort: 60005
+    port: 60005
+    protocol: TCP

@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-proccontroller
+  labels:
+    app: cmdb-proccontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-proccontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-proccontroller
+        image: cmdb-proccontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50003
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-proccontroller
+  labels:
+    app: cmdb-proccontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-proccontroller
+  ports:
+  - name: cmdb-proccontroller
+    targetPort: 50003
+    port: 50003
+    protocol: TCP

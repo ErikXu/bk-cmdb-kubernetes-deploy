@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-objectcontroller
+  labels:
+    app: cmdb-objectcontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-objectcontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-objectcontroller
+        image: cmdb-objectcontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50001
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-objectcontroller
+  labels:
+    app: cmdb-objectcontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-objectcontroller
+  ports:
+  - name: cmdb-objectcontroller
+    targetPort: 50001
+    port: 50001
+    protocol: TCP

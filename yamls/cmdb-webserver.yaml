@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-webserver
+  labels:
+    app: cmdb-webserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-webserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-webserver
+        image: cmdb-webserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 8083
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-webserver
+  labels:
+    app: cmdb-webserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-webserver
+  type: NodePort
+  ports:
+  - name: cmdb-webserver
+    nodePort: 30000
+    targetPort: 8083
+    port: 8083
+    protocol: TCP

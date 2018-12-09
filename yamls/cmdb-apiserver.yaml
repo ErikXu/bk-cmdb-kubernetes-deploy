@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-apiserver
+  labels:
+    app: cmdb-apiserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-apiserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-apiserver
+        image: cmdb-apiserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-apiserver
+  labels:
+    app: cmdb-apiserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-apiserver
+  ports:
+  - name: cmdb-apiserver
+    targetPort: 8080
+    port: 8080
+    protocol: TCP

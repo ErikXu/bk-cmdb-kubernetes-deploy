@@ -1,0 +1,42 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-eventserver
+  labels:
+    app: cmdb-eventserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-eventserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-eventserver
+        image: cmdb-eventserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60009
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-eventserver
+  labels:
+    app: cmdb-eventserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-eventserver
+  ports:
+  - name: cmdb-eventserver
+    targetPort: 60009
+    port: 60009
+    protocol: TCP

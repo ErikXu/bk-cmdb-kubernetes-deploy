@@ -1,0 +1,494 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-apiserver
+  labels:
+    app: cmdb-apiserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-apiserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-apiserver
+        image: cmdb-apiserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 8080
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-apiserver
+  labels:
+    app: cmdb-apiserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-apiserver
+  ports:
+  - name: cmdb-apiserver
+    targetPort: 8080
+    port: 8080
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-auditcontroller
+  labels:
+    app: cmdb-auditcontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-auditcontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-auditcontroller
+        image: cmdb-auditcontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50005
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-auditcontroller
+  labels:
+    app: cmdb-auditcontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-auditcontroller
+  ports:
+  - name: cmdb-auditcontroller
+    targetPort: 50005
+    port: 50005
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-datacollection
+  labels:
+    app: cmdb-datacollection
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-datacollection
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-datacollection
+        image: cmdb-datacollection:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60005
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-datacollection
+  labels:
+    app: cmdb-datacollection
+  namespace: default
+spec:
+  selector:
+    app: cmdb-datacollection
+  ports:
+  - name: cmdb-datacollection
+    targetPort: 60005
+    port: 60005
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-eventserver
+  labels:
+    app: cmdb-eventserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-eventserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-eventserver
+        image: cmdb-eventserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60009
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-eventserver
+  labels:
+    app: cmdb-eventserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-eventserver
+  ports:
+  - name: cmdb-eventserver
+    targetPort: 60009
+    port: 60009
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-hostcontroller
+  labels:
+    app: cmdb-hostcontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-hostcontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-hostcontroller
+        image: cmdb-hostcontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50002
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-hostcontroller
+  labels:
+    app: cmdb-hostcontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-hostcontroller
+  ports:
+  - name: cmdb-hostcontroller
+    targetPort: 50002
+    port: 50002
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-hostserver
+  labels:
+    app: cmdb-hostserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-hostserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-hostserver
+        image: cmdb-hostserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60001
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-hostserver
+  labels:
+    app: cmdb-hostserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-hostserver
+  ports:
+  - name: cmdb-hostserver
+    targetPort: 60001
+    port: 60001
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-objectcontroller
+  labels:
+    app: cmdb-objectcontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-objectcontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-objectcontroller
+        image: cmdb-objectcontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50001
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-objectcontroller
+  labels:
+    app: cmdb-objectcontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-objectcontroller
+  ports:
+  - name: cmdb-objectcontroller
+    targetPort: 50001
+    port: 50001
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-proccontroller
+  labels:
+    app: cmdb-proccontroller
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-proccontroller
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-proccontroller
+        image: cmdb-proccontroller:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 50003
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-proccontroller
+  labels:
+    app: cmdb-proccontroller
+  namespace: default
+spec:
+  selector:
+    app: cmdb-proccontroller
+  ports:
+  - name: cmdb-proccontroller
+    targetPort: 50003
+    port: 50003
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-procserver
+  labels:
+    app: cmdb-procserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-procserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-procserver
+        image: cmdb-procserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60003
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-procserver
+  labels:
+    app: cmdb-procserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-procserver
+  ports:
+  - name: cmdb-procserver
+    targetPort: 60003
+    port: 60003
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-toposerver
+  labels:
+    app: cmdb-toposerver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-toposerver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-toposerver
+        image: cmdb-toposerver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 60002
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-toposerver
+  labels:
+    app: cmdb-toposerver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-toposerver
+  ports:
+  - name: cmdb-toposerver
+    targetPort: 60002
+    port: 60002
+    protocol: TCP
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cmdb-webserver
+  labels:
+    app: cmdb-webserver
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cmdb-webserver
+    spec:
+      nodeSelector:
+        kubernetes.io/role: node
+      containers:
+      - name: cmdb-webserver
+        image: cmdb-webserver:3.1.0
+        env:
+        - name: ZOOKEEPER_PATH
+          value: 192.168.132.139:2181
+        ports:
+        - containerPort: 8083
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: cmdb-webserver
+  labels:
+    app: cmdb-webserver
+  namespace: default
+spec:
+  selector:
+    app: cmdb-webserver
+  type: NodePort
+  ports:
+  - name: cmdb-webserver
+    nodePort: 30000
+    targetPort: 8083
+    port: 8083
+    protocol: TCP
