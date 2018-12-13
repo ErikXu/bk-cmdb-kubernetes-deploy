@@ -16,7 +16,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-apiserver
-        image: cmdb-apiserver:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-apiserver:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -61,7 +61,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-auditcontroller
-        image: cmdb-auditcontroller:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-auditcontroller:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -106,7 +106,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-datacollection
-        image: cmdb-datacollection:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-datacollection:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -151,7 +151,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-eventserver
-        image: cmdb-eventserver:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-eventserver:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -196,7 +196,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-hostcontroller
-        image: cmdb-hostcontroller:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-hostcontroller:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -241,7 +241,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-hostserver
-        image: cmdb-hostserver:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-hostserver:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -286,7 +286,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-objectcontroller
-        image: cmdb-objectcontroller:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-objectcontroller:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -331,7 +331,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-proccontroller
-        image: cmdb-proccontroller:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-proccontroller:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -376,7 +376,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-procserver
-        image: cmdb-procserver:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-procserver:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -421,7 +421,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-toposerver
-        image: cmdb-toposerver:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-toposerver:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
@@ -466,7 +466,7 @@ spec:
         kubernetes.io/role: node
       containers:
       - name: cmdb-webserver
-        image: cmdb-webserver:3.1.0
+        image: ccr.ccs.tencentyun.com/erik_xu/cmdb-webserver:3.1.0
         env:
         - name: ZOOKEEPER_PATH
           value: 192.168.132.139:2181
